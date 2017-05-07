@@ -384,8 +384,9 @@ namespace Pinta.Core
 					// Don't show shape if shapeWidth less than 3,
 					if (shapeWidth > 3) {
 						int diam = Math.Max (1, shapeWidth - 2);
-						Cairo.Rectangle shapeRect = new Cairo.Rectangle (shapeX - halfOfShapeWidth,
-												 shapeY - halfOfShapeWidth,
+						int radius = diam / 2;
+						Cairo.Rectangle shapeRect = new Cairo.Rectangle (shapeX - radius,
+												 shapeY - radius,
 												 diam,
 												 diam);
 
