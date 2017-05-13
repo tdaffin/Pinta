@@ -48,14 +48,14 @@ namespace Pinta.Tools.Brushes
 			int dy = y - lastY;
 			double d = Math.Sqrt (dx * dx + dy * dy) * 2.0;
 
-			double cx = Math.Floor (x / 100.0) * 100 + 50;
-			double cy = Math.Floor (y / 100.0) * 100 + 50;
+			//double cx = Math.Floor (x / 100.0) * 100 + 50;
+			//double cy = Math.Floor (y / 100.0) * 100 + 50;
 
 			int steps = Random.Next (1, 10);
 			double step_delta = d / steps;
 
 			for (int i = 0; i < steps; i++) {
-				g.Arc (cx, cy, (steps - i) * step_delta, 0, Math.PI * 2);
+				g.Arc (x, y, (steps - i) * step_delta, 0, Math.PI * 2);
 				g.Stroke ();
 			}
 
