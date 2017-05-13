@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinta", "Pinta\Pinta.csproj", "{E00F5D85-87B7-4A7A-8F0F-39EF763DFFD0}"
@@ -66,6 +66,7 @@ Global
 		$2.inheritsScope = text/plain
 		$2.scope = text/plain
 		$0.TextStylePolicy = $3
+		$3.TabsToSpaces = False
 		$3.EolMarker = Unix
 		$3.inheritsSet = VisualStudio
 		$3.inheritsScope = text/plain
