@@ -129,12 +129,7 @@ namespace Pinta.Tools
 				surf.Flush ();
 				int shiftedX = (int)point.X;
 				int shiftedY = (int)point.Y;
-				ColorBgra source = surf.GetColorBgraUnchecked (shiftedX, shiftedY);
-				if (UseAlphaBlending)
-					source = UserBlendOps.NormalBlendOp.ApplyStatic (source, tool_color.ToColorBgra ());
-				else
-					source = tool_color.ToColorBgra ();
-				surf.SetColorBgra (source.ToPremultipliedAlpha (), shiftedX, shiftedY);
+				surf.SetPixel (shiftedX, shiftedY, tool_color.ToColorBgra (), UseAlphaBlending);
 				surf.MarkDirty ();
 			} else {
 				using (Context g = new Context (surf)) {
@@ -150,10 +145,7 @@ namespace Pinta.Tools
 					g.LineTo (x + 0.5, y + 0.5);
 
 					g.SetSourceColor (tool_color);
-					if (UseAlphaBlending)
-						g.SetBlendMode(BlendMode.Normal);
-					else
-						g.Operator = Operator.Source;
+					g.SetBlendMode (UseAlphaBlending);
 					g.LineWidth = 1;
 					g.LineCap = LineCap.Square;
 				

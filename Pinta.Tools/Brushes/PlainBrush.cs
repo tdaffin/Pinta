@@ -49,9 +49,7 @@ namespace Pinta.Tools.Brushes
 			    PintaCore.Workspace.ActiveWorkspace.PointInCanvas (new PointD(x,y))) {
 				surface.Flush ();
 
-				ColorBgra source = surface.GetColorBgraUnchecked (x, y);
-				source = UserBlendOps.NormalBlendOp.ApplyStatic (source, strokeColor.ToColorBgra ());
-				surface.SetColorBgra (source.ToPremultipliedAlpha (), x, y);
+				surface.SetPixel (x, y, strokeColor.ToColorBgra (), g.Operator != Operator.Source);
 				surface.MarkDirty ();
 
 				return new Gdk.Rectangle (x - 1, y - 1, 3, 3);

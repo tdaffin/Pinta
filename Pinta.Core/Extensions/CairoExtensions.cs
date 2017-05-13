@@ -886,6 +886,24 @@ namespace Pinta.Core
 			return *dstPtr;
 		}
 
+		/// <summary>
+		/// Sets the pixel, doing alpha blending with the existing color if requested
+		/// </summary>
+		/// <param name="x">The x coordinate.</param>
+		/// <param name="y">The y coordinate.</param>
+		/// <param name="color">Color to use.</param>
+		/// <param name="useAlphaBlending">If set to <c>true</c> use alpha blending, otherwise overwrite.</param>
+		public static void SetPixel(this Cairo.ImageSurface surf, int x, int y, ColorBgra color, bool useAlphaBlending)
+		{
+			ColorBgra target;
+			if (useAlphaBlending) {
+				ColorBgra source = surf.GetColorBgraUnchecked (x, y);
+				target = UserBlendOps.NormalBlendOp.ApplyStatic (source, color);
+			}else
+				target = color;
+			surf.SetColorBgra (target.ToPremultipliedAlpha (), x, y);
+		}
+
 		public static ColorBgra ToColorBgra (this Cairo.Color color)
 		{
 			ColorBgra c = new ColorBgra ();
@@ -1707,6 +1725,18 @@ namespace Pinta.Core
             g.PaintWithAlpha (opacity);
             g.Restore ();
         }
+
+		/// <summary>
+		/// Sets the alpha blending mode.
+		/// </summary>
+		/// <param name="useAlphaBlending">If set to <c>true</c> use alpha blending, otherwise overwrite</param>
+		public static void SetBlendMode (this Context g, bool useAlphaBlending)
+		{
+			if (useAlphaBlending)
+				g.Operator = Operator.Over;
+			else
+				g.Operator = Operator.Source;
+		}
 
         public static void SetBlendMode (this Context g, BlendMode mode)
         {

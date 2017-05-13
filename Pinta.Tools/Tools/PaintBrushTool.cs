@@ -54,6 +54,8 @@ namespace Pinta.Tools
 
 		public override Gdk.Key ShortcutKey { get { return Gdk.Key.B; } }
 		public override int Priority { get { return 25; } }
+
+		protected override bool ShowAlphaBlendingButton { get { return true; } }
 		#endregion
 
 		private BasePaintBrush default_brush;
@@ -187,6 +189,7 @@ namespace Pinta.Tools
 				g.LineJoin = LineJoin.Round;
 				g.LineCap = BrushWidth == 1 ? LineCap.Butt : LineCap.Round;
 				g.SetSourceColor (stroke_color);
+				g.SetBlendMode (UseAlphaBlending);
 
                 invalidate_rect = active_brush.DoMouseMove (g, stroke_color, surf,
 				                                            x, y, last_point.X, last_point.Y);
